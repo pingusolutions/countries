@@ -1,0 +1,17 @@
+{
+  "name": "pingusolutions/countries",
+  "description": "A PHP Enum for ISO 3166-1 alpha-2 countries",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Pingu\\Countries\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.3"
+  },
+  "require-dev": {},
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
