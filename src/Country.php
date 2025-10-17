@@ -223,6 +223,24 @@ enum Country: string
     }
 
     /**
+     * Get a human-readable version of the enum name.
+     *
+     * This inserts a space before each uppercase letter (except the first one),
+     * converting values like "SaintKittsAndNevis" into "Saint Kitts And Nevis".
+     *
+     * Regex explanation:
+     *   (?<!^)  → Negative lookbehind to ensure we are not at the start of the string
+     *   ([A-Z]) → Match any uppercase letter
+     *   ' $1'   → Replace the match with a space followed by the letter
+     */
+    public function getFormattedName(): string
+    {
+        $name = preg_replace('/(?<!^)([A-Z])/', ' $1', $this->name);
+
+        return str_replace(' And ', ' and ', $name);
+    }
+
+    /**
      * Return all countries as an array of enum cases.
      *
      * @return array<\App\Enums\Country>
@@ -269,7 +287,7 @@ enum Country: string
     {
         $list = [];
         foreach (self::cases() as $case) {
-            $list[$case->getIsoCode()] = $case->getName();
+            $list[$case->getIsoCode()] = $case->getFormattedName();
         }
         return $list;
     }
@@ -283,7 +301,7 @@ enum Country: string
     {
         $list = [];
         foreach (self::cases() as $case) {
-            $list[$case->getIsoCodeLowerCase()] = $case->getName();
+            $list[$case->getIsoCodeLowerCase()] = $case->getFormattedName();
         }
         return $list;
     }
