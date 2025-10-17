@@ -207,6 +207,14 @@ enum Country: string
     }
 
     /**
+     * Get Iso code for a country in lower case.
+     */
+    public function getIsoCodeLowerCase(): string
+    {
+        return strtolower($this->value);
+    }
+
+    /**
      * Get the country name in English.
      */
     public function getName(): string
@@ -262,6 +270,20 @@ enum Country: string
         $list = [];
         foreach (self::cases() as $case) {
             $list[$case->getIsoCode()] = $case->getName();
+        }
+        return $list;
+    }
+
+    /**
+     * For dropdowns: return [ 'de' => 'Germany', ... ].
+     *
+     * @return array<string,string>
+     */
+    public static function dropdownLowercase(): array
+    {
+        $list = [];
+        foreach (self::cases() as $case) {
+            $list[$case->getIsoCodeLowerCase()] = $case->getName();
         }
         return $list;
     }
